@@ -1,0 +1,38 @@
+.task-container .Skyblue {
+    color: hotpink;
+    background-color: #230624;
+}
+.task-container .Indigo {
+    color: #7ed0ff;
+    background-color: indigo;
+}
+
+.task-container .Red {
+    color: red;
+    background-color: #11074d;
+}
+
+.task-container .Orange {
+    color: orangered;
+    background-color: #3c1913;
+}
+
+.task-container .Lemon {
+    background-color: #305314;
+    color: yellow;
+}
+
+.task-container .Blue {
+    color: #9d3701;
+    background-color: #d7f6d5;
+}
+
+.task-container .Teal {
+    color: #fcfea2;
+    background-color: teal;
+}
+
+.task-container .Green {
+    color: springgreen;
+    background-color: #705205;
+}
