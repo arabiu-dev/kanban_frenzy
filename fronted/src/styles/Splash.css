@@ -1,0 +1,13 @@
+.frenzy {
+    color: #152238;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+@media only screen and (min-width: 768px) {
+    .frenzy {
+        font-size: 5rem;
+    }
+}
