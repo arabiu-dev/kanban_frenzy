@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { createBoard, fetchRBoards } from './boardsSlice';
 import examples from "../data.json";
-const SIGNUP_URL = 'http://localhost:8000/api/v1/signup';
-const LOGIN_URL = 'http://localhost:8000/api/v1/signin';
+const SIGNUP_URL = 'https://kanbanfrenzy.up.railway.app/api/v1/signup';
+const LOGIN_URL = 'https://kanbanfrenzy.up.railway.app/api/v1/signin';
 const USER_SIGNED = 'user_signup';
 const USER_LOGGED = 'user_login';
 const USER_LOGGEDOUT = 'user_loggedout';

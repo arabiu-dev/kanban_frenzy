@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const URL = 'http://localhost:8000/api/v1/auth/';
+const URL = 'https://kanbanfrenzy.up.railway.app/api/v1/auth/';
 
 export const fetchRBoards = createAsyncThunk('frenzy/Boards', async () => {
   const res = await fetch(`${URL}boards`, {
@@ -13,7 +13,7 @@ export const fetchRBoards = createAsyncThunk('frenzy/Boards', async () => {
     },
   });
   const data = await res.json();
-  data[0]["isActive"] = true;
+  if (data.length > 0) data[0]["isActive"] = true;
   return data;
 },
 );
