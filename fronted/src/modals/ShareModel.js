@@ -19,7 +19,6 @@ export default function SharedModal({ title, board, setIsShareModalOpen }) {
     };
 
     const onSubmit = () => {
-        console.log(username);
         setIsShareModalOpen(false);
         dispatch(shareBoard({username, board: {...board, isActive: false}}));
     };

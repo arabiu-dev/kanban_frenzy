@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogin, userSignUp } from '../redux/userSlice.js';
+import { userLogin, userSignUp } from "../redux/userSlice.js";
 import "../styles/BoardModals.css";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import store from "../redux/store.js";
 
 export default function SignInUp({ type, setIsBoardModalOpen }) {
   const dispatch = useDispatch();
   const [username, setName] = useState("");
-  const [passWordError, setPassWordError] = useState("Can't be empty")
-  const [nameWordError, setNameWordError] = useState("Can't be empty")
+  const [passWordError, setPassWordError] = useState("Can't be empty");
+  const [nameWordError, setNameWordError] = useState("Can't be empty");
   const [password, setPassword] = useState("");
   const [isValid, setIsValid] = useState(true);
-  
+
   let notify;
-  const { error } = useSelector((state) => state.user);
+  const { error, requestLoading } = useSelector((state) => state.user);
 
   if (error === "Valid") {
     setIsBoardModalOpen(false);
@@ -43,8 +43,16 @@ export default function SignInUp({ type, setIsBoardModalOpen }) {
     } else {
       await dispatch(userSignUp({ username, password }));
     }
-    notify = () => toast.error(store.getState().user.error)
+    notify = () => toast.error(store.getState().user.error);
   };
+
+  if (requestLoading) {
+    return (
+      <div className="preloader" data-preloader>
+        <div className="circle" data-circle></div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -57,7 +65,9 @@ export default function SignInUp({ type, setIsBoardModalOpen }) {
       }}
     >
       <div className="modal">
-        <h3>{type === "signin" ? "Login to your account" : "Create an account"}</h3>
+        <h3>
+          {type === "signin" ? "Login to your account" : "Create an account"}
+        </h3>
         <label htmlFor="board-name-input">Username</label>
         <div className="input-container">
           <input
@@ -87,31 +97,33 @@ export default function SignInUp({ type, setIsBoardModalOpen }) {
           )}
         </div>
         <button
-          onClick={ async() => {
+          onClick={async () => {
             const isValid = validate();
             if (isValid === true) await onSubmit(type);
-            notify()
+            notify();
           }}
           className="create-btn"
         >
           {type === "signin" ? "Login" : "Create an account"}
         </button>
-        {<Toaster
-          position="top-left"
-          reverseOrder={false}
-          gutter={8}
-          containerClassName=""
-          containerStyle={{}}
-          toastOptions={{
-            // Define default options
-            className: '',
-            duration: 5000,
-            style: {
-              background: '#635fc7',
-              color: '#fff',
-            },
-          }}
-        />}
+        {
+          <Toaster
+            position="top-left"
+            reverseOrder={false}
+            gutter={8}
+            containerClassName=""
+            containerStyle={{}}
+            toastOptions={{
+              // Define default options
+              className: "",
+              duration: 5000,
+              style: {
+                background: "#635fc7",
+                color: "#fff",
+              },
+            }}
+          />
+        }
       </div>
     </div>
   );
