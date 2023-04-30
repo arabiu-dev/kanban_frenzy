@@ -7,7 +7,7 @@ import userSlice from "./redux/userSlice";
 import EmptyBoard from "./components/EmptyBoard";
 import Splash from "./components/Splash";
 import { useEffect } from "react";
-import { BeatLoader } from 'react-spinners';
+import { BeatLoader } from "react-spinners";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,13 +15,14 @@ function App() {
 
   useEffect(() => {
     if (!user.isLogged && sessionStorage.getItem("userLogged"))
-      dispatch(userSlice.actions.setUserLogged(sessionStorage.getItem("userLogged")))
-  }, [])
+      dispatch(
+        userSlice.actions.setUserLogged(sessionStorage.getItem("userLogged"))
+      );
+  }, []);
 
   useEffect(() => {
-    if (user.isLogged)
-      dispatch(fetchRBoards());
-  }, [user.isLogged])
+    if (user.isLogged) dispatch(fetchRBoards());
+  }, [user.isLogged]);
 
   const boards = useSelector((state) => state.boards);
   const theme = useSelector((state) => state.theme);
@@ -38,7 +39,7 @@ function App() {
         margin={5}
         cssOverride={{ textAlign: "center", marginTop: "20vh" }}
       />
-    )
+    );
   }
 
   return (
@@ -53,7 +54,10 @@ function App() {
           ) : (
             <EmptyBoard type="add" />
           )}
-        </div>) : <Splash />}
+        </div>
+      ) : (
+        <Splash />
+      )}
     </>
   );
 }

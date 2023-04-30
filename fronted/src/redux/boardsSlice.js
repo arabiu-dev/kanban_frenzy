@@ -1,85 +1,72 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const URL = 'https://kanbanfrenzy.up.railway.app/api/v1/auth/';
+const URL = "https://kanbanfrenzy.up.railway.app/api/v1/auth/";
 
-export const fetchRBoards = createAsyncThunk('frenzy/Boards', async () => {
+export const fetchRBoards = createAsyncThunk("frenzy/Boards", async () => {
   const res = await fetch(`${URL}boards`, {
-    method: 'GET',
-    mode: 'cors',
+    method: "GET",
+    mode: "cors",
     headers: {
-      'content-type': 'application/json',
-      accept: 'application/json',
-      token: localStorage.getItem('token'),
+      "content-type": "application/json",
+      accept: "application/json",
+      token: localStorage.getItem("token"),
     },
   });
   const data = await res.json();
   if (data.length > 0) data[0]["isActive"] = true;
   return data;
-},
-);
+});
 
-export const updateBoard = createAsyncThunk(
-  'frenzy/update',
-  async (board) => {
-    await fetch(`${URL}update`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        token: localStorage.getItem('token'),
-      },
-      body: JSON.stringify(board),
-    });
-  },
-);
+export const updateBoard = createAsyncThunk("frenzy/update", async (board) => {
+  await fetch(`${URL}update`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      token: localStorage.getItem("token"),
+    },
+    body: JSON.stringify(board),
+  });
+});
 
-export const createBoard = createAsyncThunk(
-  'frenzy/update',
-  async (board) => {
-    await fetch(`${URL}create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        token: localStorage.getItem('token'),
-      },
-      body: JSON.stringify(board),
-    });
-  },
-);
+export const createBoard = createAsyncThunk("frenzy/update", async (board) => {
+  await fetch(`${URL}create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      token: localStorage.getItem("token"),
+    },
+    body: JSON.stringify(board),
+  });
+});
 
-export const shareBoard = createAsyncThunk(
-  'frenzy/update',
-  async (body) => {
-    await fetch(`${URL}share`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        token: localStorage.getItem('token'),
-      },
-      body: JSON.stringify(body),
-    });
-  },
-);
+export const shareBoard = createAsyncThunk("frenzy/update", async (body) => {
+  await fetch(`${URL}share`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      token: localStorage.getItem("token"),
+    },
+    body: JSON.stringify(body),
+  });
+});
 
-export const deleteBoard = createAsyncThunk(
-  'frenzy/update',
-  async (id) => {
-    await fetch(`${URL}delete/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        token: localStorage.getItem('token'),
-      },
-    });
-  },
-);
+export const deleteBoard = createAsyncThunk("frenzy/update", async (id) => {
+  await fetch(`${URL}delete/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      token: localStorage.getItem("token"),
+    },
+  });
+});
 
 export const boardDetails = createAsyncThunk(
-  'frenzy/update',
+  "frenzy/update",
   async (_, { getState, dispatch }) => {
     const state = getState();
-    const board = state.boards.find((board) => board.isActive)
-    dispatch(updateBoard({...board, isActive: false}));
-  },
+    const board = state.boards.find((board) => board.isActive);
+    dispatch(updateBoard({ ...board, isActive: false }));
+  }
 );
 
 const boardsSlice = createSlice({
